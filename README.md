@@ -37,7 +37,7 @@ aoc config --show
 You can set these parameters either in the command line
 ```bash
 aoc config --token <your AoC token> \
-           --folder <your folder>
+           --folder <folder with your solutions>
 ```
 or manually by editing a file `~/.config/aocd/fast_aoc_config.json`.
 
