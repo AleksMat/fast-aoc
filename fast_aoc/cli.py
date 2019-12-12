@@ -6,7 +6,7 @@ import logging
 import click
 
 from .config import Config
-from .logging_utils import set_logging
+from .logger import set_logging
 from .runner import Runner
 from .storage import ProblemStorage
 from .waiter import wait_for_problem

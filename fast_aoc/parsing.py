@@ -1,4 +1,4 @@
-""" Module with tools that can be used for solving
+""" Module with parsing utilities
 """
 import collections
 
