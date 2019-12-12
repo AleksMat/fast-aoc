@@ -34,7 +34,7 @@ and
 ```bash
 aoc config --show
 ```
-You can set these parameters either in command line
+You can set these parameters either in the command line
 ```bash
 aoc config --token <your AoC token> \
            --folder <your folder>
@@ -60,7 +60,7 @@ aoc start -y 2019 -d 1
 
 **2. Submit a solution**
 
-Once you have implemented any of functions `solve_a` or `solve_b` you can run a command:
+Once you have implemented any of the functions `solve_a` or `solve_b` you can run a command:
 ```bash
 aoc submit
 ```
