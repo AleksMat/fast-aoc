@@ -1,10 +1,10 @@
 """ Module for handling where problems are being stored
 """
-import importlib.util
 import os
 import shutil
 
 from .config import Config
+from .importing import import_module
 
 
 class ProblemStorage:
@@ -15,10 +15,15 @@ class ProblemStorage:
 
         self.config = config or Config(raise_undefined=True)
 
+    def get_year_folder(self, year):
+        """ Return folder path for a given year
+        """
+        return os.path.join(self.config.folder, str(year))
+
     def get_problem_folder(self, year, day):
         """ Returns folder path for given problem
         """
-        return os.path.join(self.config.folder, str(year), f'problem-{day}')
+        return os.path.join(self.get_year_folder(year), f'problem-{day}')
 
     def get_problem_file(self, year, day):
         return os.path.join(self.get_problem_folder(year, day), 'solution.py')
@@ -71,11 +76,20 @@ class ProblemStorage:
         return line
 
     def get_solution(self, year, day):
-
+        """ Provides the solution
+        """
         problem_file = self.get_problem_file(year, day)
 
-        spec = importlib.util.spec_from_file_location('solution', problem_file)
-        solution_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(solution_module)
+        solution_module = import_module('solution', problem_file)
 
         return solution_module.solve_a, solution_module.solve_b
+
+
+def get_common_module(year, config=None):
+    """ Imports a common module for a given year
+    """
+    storage = ProblemStorage(config=config)
+
+    module_path = storage.get_year_folder(year)
+
+    return import_module('common', os.path.join(module_path, 'common.py'))
