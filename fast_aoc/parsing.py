@@ -1,10 +1,11 @@
 """ Module with parsing utilities
 """
-import collections
 
 
-def parse_input(typ=None, sep=' ', strip=' '):
+def parse_input(_solution=None, typ=None, sep=' ', strip=' '):
     """
+    :param _solution: A decorator can be used without initialization
+    :type _solution: function
     :param typ: Type of resulting input. By default it will try to parse every item in either int or float.
         If that won't work it will leave it in string form
     :type typ: type
@@ -13,14 +14,11 @@ def parse_input(typ=None, sep=' ', strip=' '):
     :param strip: Characters that will be stripped from each item in each line
     :type strip: str
     """
-    is_function = isinstance(typ, collections.Callable)
-    real_input_type = None if is_function else typ
-
     def parse_decorator(solution):
 
         def parsing_solution(raw_input):
 
-            parsed_input = [parse_line(line, typ=real_input_type, sep=sep, strip=strip)
+            parsed_input = [parse_line(line, typ=typ, sep=sep, strip=strip)
                             for line in raw_input.strip('\n').split('\n')]
 
             if len(parsed_input) == 1:
@@ -30,8 +28,8 @@ def parse_input(typ=None, sep=' ', strip=' '):
 
         return parsing_solution
 
-    if is_function:
-        return parse_decorator(typ)
+    if _solution is not None:
+        return parse_decorator(_solution)
 
     return parse_decorator
 
