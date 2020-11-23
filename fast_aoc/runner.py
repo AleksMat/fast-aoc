@@ -2,6 +2,7 @@
 """
 import logging
 import time
+import datetime as dt
 
 from aocd import PuzzleUnsolvedError
 from aocd.models import Puzzle
@@ -53,13 +54,13 @@ class Runner:
 
             start = time.time()
             answer = solution(self.input_data)
-            elapsed_time = time.time() - start
+            elapsed_time = dt.timedelta(seconds=time.time() - start)
 
             if answer is None:
                 LOGGER.info(f'Solution for part {part} is not yet implemented')
                 continue
 
-            LOGGER.info(f'Finished solving part {part}, answer is {answer}, time spent {elapsed_time:0.3f}s')  # TODO nicer time formatting
+            LOGGER.info(f'Finished solving part {part}, answer is {answer}, time spent {elapsed_time}s')
 
             if expected_answer is not None:
                 if str(answer) == expected_answer:

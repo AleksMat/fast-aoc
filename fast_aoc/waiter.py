@@ -8,6 +8,7 @@ from aocd.models import Puzzle
 
 LOGGER = logging.getLogger(__name__)
 
+
 def wait_for_problem(year, day):
 
     problem_start = dt.datetime(year=year, month=12, day=day, hour=6, minute=0, second=0)  # TODO: improve
