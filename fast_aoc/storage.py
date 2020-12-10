@@ -2,6 +2,7 @@
 """
 import os
 import shutil
+from typing import Optional
 
 from .config import Config
 from .importing import import_module
@@ -11,8 +12,10 @@ class ProblemStorage:
     """ Problem storage class
     """
 
-    def __init__(self, config=None):
-
+    def __init__(self, config: Optional[Config] = None):
+        """
+        :param config: A configuration object
+        """
         self.config = config or Config(raise_undefined=True)
 
     def get_year_folder(self, year):
@@ -29,7 +32,10 @@ class ProblemStorage:
         return os.path.join(self.get_problem_folder(year, day), 'solution.py')
 
     def get_logs_file(self, year, day):
-        return os.path.join(self.config.CONFIG_FOLDER, self.config.token, f'{year}_{day:02d}_logs.txt')
+        folder = os.path.join(self.config.CONFIG_FOLDER, self.config.token)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        return os.path.join(folder, f'{year}_{day:02d}_logs.txt')
 
     @staticmethod
     def get_template_file():
